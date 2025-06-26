@@ -1,0 +1,50 @@
+/// Mapování ASCII znaků na HID keycodes (QWERTY, základní ASCII)
+/// Pro rozšíření na národní znaky (CZ/SK) doplňte další větve match.
+
+pub fn char_to_hid(c: char) -> Option<(u8, u8)> {
+    // Modifier bits: 0x02 = Left Shift
+    match c {
+        'a'..='z' => Some((0, 0x04 + (c as u8 - b'a'))),
+        'A'..='Z' => Some((0x02, 0x04 + (c as u8 - b'A'))),
+        '1'..='9' => Some((0, 0x1E + (c as u8 - b'1'))),
+        '0' => Some((0, 0x27)),
+        '!' => Some((0x02, 0x1E)),
+        '@' => Some((0x02, 0x1F)),
+        '#' => Some((0x02, 0x20)),
+        '$' => Some((0x02, 0x21)),
+        '%' => Some((0x02, 0x22)),
+        '^' => Some((0x02, 0x23)),
+        '&' => Some((0x02, 0x24)),
+        '*' => Some((0x02, 0x25)),
+        '(' => Some((0x02, 0x26)),
+        ')' => Some((0x02, 0x27)),
+        ' ' => Some((0, 0x2C)),
+        '\n' | '\r' => Some((0, 0x28)),
+        '\t' => Some((0, 0x2B)),
+        '-' => Some((0, 0x2D)),
+        '_' => Some((0x02, 0x2D)),
+        '=' => Some((0, 0x2E)),
+        '+' => Some((0x02, 0x2E)),
+        '[' => Some((0, 0x2F)),
+        '{' => Some((0x02, 0x2F)),
+        ']' => Some((0, 0x30)),
+        '}' => Some((0x02, 0x30)),
+        '\\' => Some((0, 0x31)),
+        '|' => Some((0x02, 0x31)),
+        ';' => Some((0, 0x33)),
+        ':' => Some((0x02, 0x33)),
+        '\'' => Some((0, 0x34)),
+        '"' => Some((0x02, 0x34)),
+        '`' => Some((0, 0x35)),
+        '~' => Some((0x02, 0x35)),
+        ',' => Some((0, 0x36)),
+        '<' => Some((0x02, 0x36)),
+        '.' => Some((0, 0x37)),
+        '>' => Some((0x02, 0x37)),
+        '/' => Some((0, 0x38)),
+        '?' => Some((0x02, 0x38)),
+        // TODO: Rozšíření pro české znaky (např. 'ě', 'š', 'č', ...)
+        // např. 'ě' => Some((0x02, ...)),
+        _ => None,
+    }
+} 
