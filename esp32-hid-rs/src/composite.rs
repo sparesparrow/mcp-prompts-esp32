@@ -23,6 +23,15 @@ impl CompositeDevice {
         // Spuštění všech rozhraní (zatím pouze placeholder)
         // Např. self.hid.as_ref().map(|h| h.start());
     }
+
+    /// Odeslání textu jako HID sekvence přes HID klávesnici (pokud je přítomna)
+    pub async fn send_string(&mut self, text: &str) -> Result<(), ()> {
+        if let Some(hid) = self.hid.as_mut() {
+            hid.send_string(text).await.map_err(|_| ())
+        } else {
+            Err(())
+        }
+    }
 }
 
 // Pro rozšíření: přidejte inicializaci a start pro RNDIS/CDC podle potřeby. 

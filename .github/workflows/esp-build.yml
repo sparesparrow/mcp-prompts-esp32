@@ -1,0 +1,35 @@
+name: ESP32 HID Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-hid:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - name: Add xtensa target
+        run: rustup target add xtensa-esp32s3-none-elf
+
+      - name: Install build dependencies
+        run: sudo apt-get update && sudo apt-get install -y libudev-dev pkg-config
+
+      - name: Build esp32-hid-rs with HID feature
+        run: |
+          cd esp32-hid-rs
+          cargo build --release --target xtensa-esp32s3-none-elf --features "hid"
+
+      - name: Check binary size
+        run: |
+          cd esp32-hid-rs
+          stat --printf="%s" target/xtensa-esp32s3-none-elf/release/esp32-hid-rs

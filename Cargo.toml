@@ -9,3 +9,6 @@ embassy-time = "0.4.0"
 embassy-usb = "0.4.0"
 esp-hal = "0.23.1"
 usbd-hid = "0.8.2"
+
+[features]
+hid = ["esp32-hid-rs"]
