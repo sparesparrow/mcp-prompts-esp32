@@ -1,3 +1,5 @@
+
+
 [package]
 name = "mcp-prompts-esp32"
 version = "0.1.0"
@@ -9,6 +11,12 @@ embassy-time = "0.4.0"
 embassy-usb = "0.4.0"
 esp-hal = "0.23.1"
 usbd-hid = "0.8.2"
+esp32-hid-rs = { path = "esp32-hid-rs", optional = true }
 
 [features]
 hid = ["esp32-hid-rs"]
+
+[workspace]
+members = [
+    "esp32-hid-rs"
+]

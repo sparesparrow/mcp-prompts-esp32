@@ -488,6 +488,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "esp32-hid-rs"
+version = "0.1.0"
+dependencies = [
+ "embassy-executor",
+ "embassy-time",
+ "embassy-usb",
+ "esp-hal",
+ "usbd-hid",
+]
+
+[[package]]
 name = "fnv"
 version = "1.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -636,6 +647,7 @@ dependencies = [
  "embassy-time",
  "embassy-usb",
  "esp-hal",
+ "esp32-hid-rs",
  "usbd-hid",
 ]
 
